@@ -31,7 +31,7 @@ def countWords(rows):
   probs = {}
   totalWords = sum(words.values())
   for key, value in words.items():
-    probs[key] = abs(log(value/totalWords, 10))
+    probs[key] = abs(value/totalWords)
 
   return probs
 
@@ -46,12 +46,21 @@ def bagOfWords(file):
   probs_no_selesccionados = countWords(no_seleccionados)
 
   diferencias = {}
+  for key, value in probs_selesccionados.items():
+      try:
+        diferencias[key] = value - probs_no_selesccionados[key]
+      except KeyError as e:
+        diferencias[key] = value - 0
+
   for key, value in probs_no_selesccionados.items():
-    if key in probs_selesccionados.keys():
-        diferencias[key] = value - probs_selesccionados[key]
+      if key not in probs_selesccionados.items():
+        try:
+          diferencias[key] = value - probs_selesccionados[key]
+        except KeyError as e:
+          diferencias[key] = value - 0
 
   sorted_diferencias = sorted(diferencias.items(), key=operator.itemgetter(1))
-  print(sorted_diferencias[:10])
+  print(sorted_diferencias[-10:])
 
 
 def main():
