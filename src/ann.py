@@ -19,6 +19,10 @@ class ANN(object):
   def softMax(self, x):
     return np.exp(x[0])/np.sum(x[1])
 
+  def softMax2(self, x):
+    sum = np.sum(x)
+    return np.divide(x,sum)
+
   def devSoftMax(self, x):
     y = self.softMax(x)
     return y*(1-y)
@@ -34,4 +38,5 @@ class ANN(object):
     self.z2 = np.dot(input, self.W1)
     self.a2 = self.tanh(self.z2)
     self.z3 = np.dot(self.a2, self.W2)
-    output = 0
+    outp = self.softMax2(self.softMax(self.z3))
+    return outp
