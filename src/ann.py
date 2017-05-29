@@ -7,8 +7,8 @@ class ANN(object):
     self.salidas = 2
     self.tamCapaOculta = 3
 
-    self.W1 = np.random(self.entradas, self.tamCapaOculta)
-    self.W2 = np.random(self.tamCapaOculta, self.salidas)
+    self.W1 = np.random.randn(self.entradas, self.tamCapaOculta)
+    self.W2 = np.random.randn(self.tamCapaOculta, self.salidas)
 
   def tanh(self, x):
     return np.tanh(x)
@@ -40,3 +40,10 @@ class ANN(object):
     self.z3 = np.dot(self.a2, self.W2)
     outp = self.softMax2(self.softMax(self.z3))
     return outp
+
+def main():
+  ann = ANN(1)
+  print(ann.forwardProp([[1],[2],[3]]))
+
+if __name__ == '__main__':
+  main()
