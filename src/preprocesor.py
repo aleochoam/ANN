@@ -1,11 +1,9 @@
+import pandas as pd
+
 def bagOfWords(file):
-  file = open(file,"r")
-  text = file.read().decode('utf8')
-  for line in text:
-    for word in line.split():
-      for l in word:
-        print(l)
-        input()
+  xl = pd.ExcelFile("/home/alejandro/Universidad/Semestre 7/Ingenieria del Conocimiento/Proyecto3/ANN/tweets.xlsx")
+  df = xl.parse("tweets")
+  print(df.head())
 
 def main():
   bagOfWords("seleccionados.txt")
