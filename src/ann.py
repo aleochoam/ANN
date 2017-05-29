@@ -17,10 +17,11 @@ class ANN(object):
     return 1-(self.tanh(x))**2
 
   def softMax(self, x):
-    return np.exp(x[0])
+    return np.exp(x)
 
   def softMax2(self, x):
-    sum = np.sum(x)
+    sum = np.sum(x, axis=1)
+    sum = np.transpose(np.tile(sum,(2,1)))
     return np.divide(x,sum)
 
   def devSoftMax(self, x):
@@ -36,14 +37,18 @@ class ANN(object):
   #Forward Propagation
   def forwardProp(self, input):
     self.z2 = np.dot(input, self.W1)
+    #print(self.z2)
     self.a2 = self.tanh(self.z2)
+    #print(self.a2)
     self.z3 = np.dot(self.a2, self.W2)
-    outp = self.softMax2(self.softMax(self.z3))
-    return outp
+    #print(self.z3)
+    outp = self.softMax(self.z3)
+    outp1 = self.softMax2(outp)
+    return outp1
 
 def main():
   ann = ANN(1)
   print(ann.forwardProp([[1],[2],[3]]))
-
+  #ann.forwardProp([1,2,3])
 if __name__ == '__main__':
   main()
