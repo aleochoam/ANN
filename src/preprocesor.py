@@ -1,6 +1,7 @@
 import re
 import sys
 import unicodedata
+import operator
 from math import log
 
 import pandas as pd
@@ -30,11 +31,8 @@ def countWords(rows):
   probs = {}
   totalWords = sum(words.values())
   for key, value in words.items():
-    print(key,value)
-    probs[key] = (value/totalWords, 10)
+    probs[key] = abs(log(value/totalWords, 10))
 
-  for key, value in probs.items():
-    print(key,value)
   return probs
 
 def bagOfWords(file):
@@ -46,6 +44,14 @@ def bagOfWords(file):
 
   probs_selesccionados = countWords(seleccionados)
   probs_no_selesccionados = countWords(no_seleccionados)
+
+  diferencias = {}
+  for key, value in probs_no_selesccionados.items():
+    if key in probs_selesccionados.keys():
+        diferencias[key] = value - probs_selesccionados[key]
+
+  sorted_diferencias = sorted(diferencias.items(), key=operator.itemgetter(1))
+  print(sorted_diferencias[:10])
 
 
 def main():
