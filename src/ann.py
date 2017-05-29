@@ -17,7 +17,7 @@ class ANN(object):
     return 1-(self.tanh(x))**2
 
   def softMax(self, x):
-    return np.exp(x[0])/np.sum(x[1])
+    return np.exp(x[0])
 
   def softMax2(self, x):
     sum = np.sum(x)
