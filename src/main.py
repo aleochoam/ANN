@@ -1,8 +1,10 @@
 import os
+import numpy as np
 import pandas as pd
+from random import random
+
 from ann import ANN
 from trainer import Trainer
-import numpy as np
 from preprocesor import bagOfWords
 def counter(tweet, features):
   result = [0 for i in range(25)]
@@ -17,7 +19,9 @@ def getEntrenamiento(features):
   xl = pd.ExcelFile(path)
   df = xl.parse("tweets")
 
-  muestra = df.sample(n=477)
+  df = df.sample(frac=1)
+  entrenamientoDF = df[:477]
+  testDF = df[478:]
   # tweets = muestra["Texto"]
   # clases = muestra["Label"]
 
@@ -26,19 +30,25 @@ def getEntrenamiento(features):
   # print(clase)
 
   entrenamiento = ([],[])
-  for _, row in muestra.iterrows():
+  test = ([],[])
+
+  for _, row in entrenamientoDF.iterrows():
     line = row["Texto"].lower()
     clase = [1,0] if row["Label"] == "Seleccionado" else [0,1]
     entrenamiento[0].append(counter(line,features))
     entrenamiento[1].append(clase)
-    # line = limpiar(row["Texto"])
 
-  # print(entrenamiento)
-  return entrenamiento
+  for _, row in testDF.iterrows():
+    line = row["Texto"].lower()
+    clase = [1,0] if row["Label"] == "Seleccionado" else [0,1]
+    test[0].append(counter(line,features))
+    test[1].append(clase)
+
+  return entrenamiento, test
 
 def main():
   features = features = [a for a,b in bagOfWords()]
-  entrenamiento = getEntrenamiento(features)
+  entrenamiento, test = getEntrenamiento(features)
   ann = ANN()
   trainer = Trainer(ann)
   # print(entrenamiento[0])
