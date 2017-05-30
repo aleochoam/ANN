@@ -18,15 +18,24 @@ def main():
   xl = pd.ExcelFile(path)
   df = xl.parse("tweets")
 
-  muestra = df.sample(n=477).head()
+  muestra = df.sample(n=477)
   tweets = muestra["Texto"]
-  clase = muestra["Label"]
+  clases = muestra["Label"]
 
-  print(muestra)
-  print(tweets)
-  print(clase)
+  # print(muestra)
+  # print(tweets)
+  # print(clase)
 
-  # print(list(seleccionados.head().sample(n=3)["Texto"]))
+  entrenamiento = []
+  for _, row in muestra.iterrows():
+    line = row["Texto"].lower()
+    clase = 1 if row["Label"] == "Seleccionado" else 0
+    entrenamiento.append((counter(line), clase))
+    # line = limpiar(row["Texto"])
+
+  print(entrenamiento)
+
+
 
 if __name__ == '__main__':
   main()
