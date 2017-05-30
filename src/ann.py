@@ -7,11 +7,9 @@ class ANN(object):
     self.entradas = 2
     self.salidas = 2
     self.tamCapaOculta = 5
-    print("Init")
     self.W1 = np.random.randn(self.entradas, self.tamCapaOculta)
-    print(self.W1)
+    
     self.W2 = np.random.randn(self.tamCapaOculta, self.salidas)
-    print(self.W2)
 
   def tanh(self, x):
     return np.tanh(x)
@@ -40,7 +38,7 @@ class ANN(object):
   def costFunction(self, X, y):
     #Compute cost for given X,y, use weights already stored in class.
     self.yHat = self.forwardProp(X)
-    J = 0.5*sum((y-self.yHat)**2)
+    J = 0.5*sum(sum((y-self.yHat)**2))
     return J
 
   def getParams(self):
@@ -85,9 +83,11 @@ class ANN(object):
 
 def main():
   ann = ANN()
-  #x = ann.forwardProp([[1],[2],[3]])
+  #x = ann.forwardProp([[1,3],[2,3],[6,8],[4,5],[4,6],[6,7]])=
   x = np.array([[1,3],[2,3],[6,8],[4,5],[4,6],[6,7]])
   y = [[0,1],[1,0],[0,1],[1,0],[0,1],[1,0]]
+  #print(ann.costFunction(x,y))
+  
   trainer = Trainer(ann)
   trainer.train(x,y)
   # print(trainer.costFunctionWrapper(ann.getParams(), x, y))

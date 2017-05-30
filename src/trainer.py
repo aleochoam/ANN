@@ -12,9 +12,7 @@ class Trainer(object):
         self.N.setParams(params)
         cost = self.N.costFunction(X, y)
         grad = self.N.computeGradients(X,y)
-
-        print(cost)
-        return sum(cost), grad
+        return cost, grad
 
     def train(self, X, y):
         #Make an internal variable for the callback function:
