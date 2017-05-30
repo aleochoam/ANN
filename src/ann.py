@@ -89,7 +89,8 @@ def main():
   x = np.array([[1,3],[2,3],[6,8],[4,5],[4,6],[6,7]])
   y = [[0,1],[1,0],[0,1],[1,0],[0,1],[1,0]]
   trainer = Trainer(ann)
-  trainer.train(x,y)
+  #trainer.train(x,y)
+  print(trainer.costFunctionWrapper(ann.getParams(), x, y))
   #print("dJdW2:\n",ann.costFunction(x, y))
   # for i in range(10000):
   #   dJdW1, dJdW2 = ann.costFunctionPrime(x,y)
