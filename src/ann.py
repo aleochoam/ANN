@@ -3,7 +3,7 @@ from trainer import Trainer
 
 class ANN(object):
   """Red Neuronal"""
-  def __init__(self, arg):
+  def __init__(self):
     self.entradas = 2
     self.salidas = 2
     self.tamCapaOculta = 5
@@ -84,13 +84,13 @@ class ANN(object):
     return outp
 
 def main():
-  ann = ANN(1)
+  ann = ANN()
   #x = ann.forwardProp([[1],[2],[3]])
   x = np.array([[1,3],[2,3],[6,8],[4,5],[4,6],[6,7]])
   y = [[0,1],[1,0],[0,1],[1,0],[0,1],[1,0]]
   trainer = Trainer(ann)
-  #trainer.train(x,y)
-  print(trainer.costFunctionWrapper(ann.getParams(), x, y))
+  trainer.train(x,y)
+  # print(trainer.costFunctionWrapper(ann.getParams(), x, y))
   #print("dJdW2:\n",ann.costFunction(x, y))
   # for i in range(10000):
   #   dJdW1, dJdW2 = ann.costFunctionPrime(x,y)
