@@ -3,9 +3,9 @@ import numpy as np
 class ANN(object):
   """Red Neuronal"""
   def __init__(self, arg):
-    self.entradas = 2
+    self.entradas = 8
     self.salidas = 2
-    self.tamCapaOculta = 4
+    self.tamCapaOculta = 15
     print("Init")
     self.W1 = np.random.randn(self.entradas, self.tamCapaOculta)
     print(self.W1)
