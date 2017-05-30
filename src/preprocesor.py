@@ -1,3 +1,4 @@
+import os
 import re
 import sys
 import unicodedata
@@ -36,7 +37,9 @@ def countWords(rows):
   return probs
 
 def bagOfWords(file):
-  xl = pd.ExcelFile("/home/alejandro/Universidad/Semestre 7/Ingenieria del Conocimiento/Proyecto3/ANN/tweets.xlsx")
+  path = os.path.abspath("../tweets.xlsx")
+  # xl = pd.ExcelFile("/home/alejandro/Universidad/Semestre 7/Ingenieria del Conocimiento/Proyecto3/ANN/tweets.xlsx")
+  xl = pd.ExcelFile(path)
   df = xl.parse("tweets")
 
   seleccionados = (df.loc[df['Label'] == "Seleccionado"])
