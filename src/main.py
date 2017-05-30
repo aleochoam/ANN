@@ -1,22 +1,18 @@
 import os
 import pandas as pd
-
 from ann import ANN
 from trainer import Trainer
 import numpy as np
-
-def counter(tweet):
-  features = ["moderno", "galerías", "#artemedellín", "botero", "memoria", \
-            "museo", "casa", "galerías"]
-
-  result = [0,0,0,0,0,0,0,0]
+from preprocesor import bagOfWords
+def counter(tweet, features):
+  result = [0 for i in range(25)]
   for i in range(len(features)):
     if features[i] in tweet:
       result[i] = 1
   return result
 
-def getEntrenamiento():
-  path = os.path.abspath("tweets.xlsx")
+def getEntrenamiento(features):
+  path = os.path.abspath("../tweets.xlsx")
   # xl = pd.ExcelFile("/home/alejandro/Universidad/Semestre 7/Ingenieria del Conocimiento/Proyecto3/ANN/tweets.xlsx")
   xl = pd.ExcelFile(path)
   df = xl.parse("tweets")
@@ -33,7 +29,7 @@ def getEntrenamiento():
   for _, row in muestra.iterrows():
     line = row["Texto"].lower()
     clase = [1,0] if row["Label"] == "Seleccionado" else [0,1]
-    entrenamiento[0].append(counter(line))
+    entrenamiento[0].append(counter(line,features))
     entrenamiento[1].append(clase)
     # line = limpiar(row["Texto"])
 
@@ -41,7 +37,8 @@ def getEntrenamiento():
   return entrenamiento
 
 def main():
-  entrenamiento = getEntrenamiento()
+  features = features = [a for a,b in bagOfWords()]
+  entrenamiento = getEntrenamiento(features)
   ann = ANN()
   trainer = Trainer(ann)
   # print(entrenamiento[0])

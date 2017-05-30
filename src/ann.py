@@ -4,9 +4,9 @@ from trainer import Trainer
 class ANN(object):
   """Red Neuronal"""
   def __init__(self):
-    self.entradas = 8
+    self.entradas = 25
     self.salidas = 2
-    self.tamCapaOculta = 5
+    self.tamCapaOculta = 30
     self.W1 = np.random.randn(self.entradas, self.tamCapaOculta)
 
     self.W2 = np.random.randn(self.tamCapaOculta, self.salidas)
