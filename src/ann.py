@@ -4,11 +4,11 @@ from trainer import Trainer
 class ANN(object):
   """Red Neuronal"""
   def __init__(self):
-    self.entradas = 2
+    self.entradas = 8
     self.salidas = 2
     self.tamCapaOculta = 5
     self.W1 = np.random.randn(self.entradas, self.tamCapaOculta)
-    
+
     self.W2 = np.random.randn(self.tamCapaOculta, self.salidas)
 
   def tanh(self, x):
@@ -60,7 +60,7 @@ class ANN(object):
 
   def costFunctionPrime(self, x, y):
     self.yHat = self.forwardProp(x)
-    print("yHat:\n", self.yHat)
+    # print("yHat:\n", self.yHat)
     delta3 = np.multiply(-(y-self.yHat), self.devSoftMax(self.z3))
     #print("delta3\n",delta3)
     dJdW2 = np.dot(self.a2.T, delta3)
@@ -87,7 +87,7 @@ def main():
   x = np.array([[1,3],[2,3],[6,8],[4,5],[4,6],[6,7]])
   y = [[0,1],[1,0],[0,1],[1,0],[0,1],[1,0]]
   #print(ann.costFunction(x,y))
-  
+
   trainer = Trainer(ann)
   trainer.train(x,y)
   # print(trainer.costFunctionWrapper(ann.getParams(), x, y))
@@ -105,5 +105,8 @@ def main():
   # classify = ann.forwardProp(a)
   # print(classify)
   #ann.forwardProp([1,2,3])
+  #
+
 if __name__ == '__main__':
-  main()
+  pass
+  # main()
