@@ -36,8 +36,8 @@ def countWords(rows):
 
   return probs
 
-def bagOfWords(file):
-  path = os.path.abspath("../tweets.xlsx")
+def bagOfWords():
+  path = os.path.abspath("tweets.xlsx")
   # xl = pd.ExcelFile("/home/alejandro/Universidad/Semestre 7/Ingenieria del Conocimiento/Proyecto3/ANN/tweets.xlsx")
   xl = pd.ExcelFile(path)
   df = xl.parse("tweets")
@@ -51,24 +51,68 @@ def bagOfWords(file):
   diferencias = {}
   for key, value in probs_selesccionados.items():
       try:
-        diferencias[key] = value - probs_no_selesccionados[key]
+        diferencias[key] = probs_no_selesccionados[key] - value
       except KeyError as e:
-        diferencias[key] = value - 0
+        diferencias[key] = 0- value
 
   for key, value in probs_no_selesccionados.items():
       if key not in probs_selesccionados.items():
-        try:
-          diferencias[key] = value - probs_selesccionados[key]
-        except KeyError as e:
-          diferencias[key] = value - 0
+          diferencias[key] = value -0
+
 
   sorted_diferencias = sorted(diferencias.items(), key=operator.itemgetter(1))
-  print(sorted_diferencias[-10:])
+  print(sorted_diferencias[:10])
 
+
+
+def counter(tweet):
+  features = ["moderno", "galerías", "#artemedellín", "botero", "memoria", \
+            "museo", "casa", "galerías"]
+
+  result = [0,0,0,0,0,0,0,0]
+  for i in range(len(features)):
+    if features[i] in tweet:
+      result[i] = 1
+  return result
 
 def main():
-  bagOfWords("seleccionados.txt")
+  while(True):
+    print(counter(input()))
 
 
 if __name__ == '__main__':
   main()
+
+
+#ultimos10:
+#moderno
+#galerias
+##artemedellin
+#botero
+#
+#primeros10
+#memoria
+#museo
+#
+#
+#cambiando orden
+#ultimos 10
+#casa
+#museo
+#memoria
+#
+#primeros10
+#moderno
+##artemedellin
+#galerías
+#botero
+#
+#
+#moderno
+#galerias
+##artemedellín
+#botero
+#memoria
+#museo
+#casa
+#galerías
