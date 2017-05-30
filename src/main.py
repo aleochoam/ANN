@@ -2,7 +2,7 @@ import os
 import numpy as np
 import pandas as pd
 from random import random
-
+from sklearn.metrics import accuracy_score
 from ann import ANN
 from trainer import Trainer
 from preprocesor import bagOfWords
@@ -53,6 +53,19 @@ def main():
   trainer = Trainer(ann)
   # print(entrenamiento[0])
   trainer.train(np.array(entrenamiento[0]) ,np.array(entrenamiento[1]))
+  yTest = np.array(test[1])
+  xTest = test[0]
+  y_pred = ann.forwardProp(xTest)
+  for i in y_pred:
+    if(i[0]>=0.5):
+      i[0] = 1
+      i[1] = 0
+    else:
+      i[0] = 0
+      i[1] = 1
+  print(yTest)
+  print(y_pred)
+  print(accuracy_score(y_pred, yTest))
 
 if __name__ == '__main__':
   main()
