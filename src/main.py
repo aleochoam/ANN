@@ -3,7 +3,7 @@ import numpy as np
 import pandas as pd
 from random import random
 from sklearn.metrics import accuracy_score
-from ann import ANN
+from ann_prueba import ANN
 from trainer import Trainer
 from preprocesor import bagOfWords
 def counter(tweet, features):
@@ -63,8 +63,8 @@ def main():
     else:
       i[0] = 0
       i[1] = 1
-  print(yTest)
-  print(y_pred)
+  #print(yTest)
+  #print(y_pred)
   print(accuracy_score(y_pred, yTest))
 
 if __name__ == '__main__':

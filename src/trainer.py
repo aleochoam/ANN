@@ -7,6 +7,7 @@ class Trainer(object):
     def callbackF(self, params):
         self.N.setParams(params)
         self.J.append(self.N.costFunction(self.X, self.y))
+        #print(self.J)
 
     def costFunctionWrapper(self, params, X, y):
         self.N.setParams(params)
@@ -24,9 +25,9 @@ class Trainer(object):
 
         params0 = self.N.getParams()
 
-        options = {'maxiter': 500, 'disp' : True}
+        options = {'maxiter': 1000, 'disp' : True}
         _res = optimize.minimize(self.costFunctionWrapper, params0, jac=True, method='BFGS', \
                                  args=(X, y), options=options, callback=self.callbackF)
-
+                        
         self.N.setParams(_res.x)
         self.optimizationResults = _res
