@@ -3,11 +3,13 @@ import numpy as np
 import pandas as pd
 from random import random
 from sklearn.metrics import accuracy_score
-from ann_prueba import ANN
+
 from trainer import Trainer
 from preprocesor import bagOfWords
 
+from ann_prueba import ANN
 from pybrain_ann import *
+from scikit_ann import *
 
 def counter(tweet, features):
   result = [0 for i in range(25)]
@@ -49,15 +51,10 @@ def getEntrenamiento(features):
 
   return entrenamiento, test
 
-def main():
-  features = [a for a,b in bagOfWords()]
-  entrenamiento, test = getEntrenamiento(features)
-  ann = ANN()
-  trainer = Trainer(ann)
-  trainer.train(np.array(entrenamiento[0]) ,np.array(entrenamiento[1]))
+def permormTest(y_pred, test):
   yTest = np.array(test[1])
   xTest = test[0]
-  y_pred = ann.forwardProp(xTest)
+  # y_pred = ann.forwardProp(xTest)
   for i in y_pred:
     if(i[0]>=0.5):
       i[0] = 1
@@ -68,14 +65,29 @@ def main():
   #print(yTest)
   #print(y_pred)
   print(accuracy_score(y_pred, yTest))
+  pass
+
+def main():
+  features = [a for a,b in bagOfWords()]
+  entrenamiento, test = getEntrenamiento(features)
+  ann = ANN()
+  trainer = Trainer(ann)
+  trainer.train(np.array(entrenamiento[0]) ,np.array(entrenamiento[1]))
+  permormTest(ann.forwardProp(test[0]), test)
 
 def main_pybrain():
   features = [a for a,b in bagOfWords()]
-  ann = crear_red()
   entrenamiento, test = getEntrenamiento(features)
-  train(ann, entrenamiento)
-  #evaluar y comprar resultados
+  ann = crear_red()
+  train_pybrain(ann, entrenamiento)
+  permormTest(ann.activate(test[0]), test)
 
+def main_scikit():
+  features = [a for a,b in bagOfWords()]
+  entrenamiento, test = getEntrenamiento(features)
+  ann = ann_scikit()
+  train_scikit(ann, entrenamiento)
+  permormTest(ann.predict(test[0]), test)
 
 if __name__ == '__main__':
   main_pybrain()

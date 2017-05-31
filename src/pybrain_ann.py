@@ -7,7 +7,7 @@ def crear_red():
   return buildNetwork(25, 5, 2, bias=True, outclass=SoftmaxLayer)
 
 
-def train(ann, entrenamiento):
+def train_pybrain(ann, entrenamiento):
   ds = SupervisedDataSet(25, 2)
   for i in range(len(entrenamiento[0])):
     ds.addSample((entrenamiento[0][i]),(entrenamiento[1][i]))
