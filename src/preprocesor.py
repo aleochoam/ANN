@@ -70,7 +70,7 @@ def bagOfWords():
   diferencias = {}
   for key, value in probs_selesccionados.items():
       try:
-        
+
         diferencias[key] = abs(probs_no_selesccionados[key] - value)
       except KeyError as e:
         diferencias[key] = abs(0 - value)
@@ -83,56 +83,5 @@ def bagOfWords():
   return sorted_diferencias[-25:]
 
 
-
-def counter(tweet):
-  features = ["moderno", "galerías", "#artemedellín", "botero", "memoria", \
-            "museo", "casa", "galerías"]
-
-  result = [0,0,0,0,0,0,0,0]
-  for i in range(len(features)):
-    if features[i] in tweet:
-      result[i] = 1
-  return result
-
-def main():
-  while(True):
-    print(counter(input()))
-
-
 if __name__ == '__main__':
-  # main()
-  #bagOfWords()
   pass
-
-#ultimos10:
-#moderno
-#galerias
-##artemedellin
-#botero
-#
-#primeros10
-#memoria
-#museo
-#
-#
-#cambiando orden
-#ultimos 10
-#casa
-#museo
-#memoria
-#
-#primeros10
-#moderno
-##artemedellin
-#galerías
-#botero
-#
-#
-#moderno
-#galerias
-##artemedellín
-#botero
-#memoria
-#museo
-#casa
-#galerías
