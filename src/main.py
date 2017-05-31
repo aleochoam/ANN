@@ -19,7 +19,7 @@ def counter(tweet, features):
   return result
 
 def getEntrenamiento(features):
-  path = os.path.abspath("../tweets.xlsx")
+  path = os.path.abspath("./tweets.xlsx")
   # xl = pd.ExcelFile("/home/alejandro/Universidad/Semestre 7/Ingenieria del Conocimiento/Proyecto3/ANN/tweets.xlsx")
   xl = pd.ExcelFile(path)
   df = xl.parse("tweets")
@@ -66,13 +66,36 @@ def permormTest(y_pred, test):
   #print(y_pred)
   print(accuracy_score(y_pred, yTest))
 
+def guardarPesos(W1,W2,W3):
+  np.save("w1", W1)
+  np.save("w2", W2)
+  np.save("w3", W3)
+
+def cargarPesos():
+  W1 = np.load("w1.npy")
+  W2 = np.load("w2.npy")
+  W3 = np.load("w3.npy")
+  return W1, W2, W3
+
 def main():
   features = [a for a,b in bagOfWords()]
   entrenamiento, test = getEntrenamiento(features)
   ann = ANN()
+  print("Empezando entrenamiento")
   trainer = Trainer(ann)
   trainer.train(np.array(entrenamiento[0]) ,np.array(entrenamiento[1]))
-  # permormTest(ann.forwardProp(test[0]), test)
+
+  # W1,W2,W3 = cargarPesos()
+  # ann.W1 = W1
+  # ann.W1 = W2
+  # ann.W1 = W3
+  print("Entrenamiento finalizado con los siguientes pesos")
+  print(trainer.N.W1)
+  print(trainer.N.W2)
+  print(trainer.N.W3)
+  # guardarPesos(trainer.N.W1, trainer.N.W2, trainer.N.W3)
+  print("Test:")
+  permormTest(ann.forwardProp(test[0]), test)
 
 def main_pybrain():
   features = [a for a,b in bagOfWords()]
@@ -91,4 +114,4 @@ def main_scikit():
   permormTest(y_pred, test)
 
 if __name__ == '__main__':
-  main_scikit()
+  main()

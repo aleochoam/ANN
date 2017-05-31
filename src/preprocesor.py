@@ -57,7 +57,7 @@ def countWords(rows):
   return probs
 
 def bagOfWords():
-  path = os.path.abspath("../tweets.xlsx")
+  path = os.path.abspath("./tweets.xlsx")
   # xl = pd.ExcelFile("/home/alejandro/Universidad/Semestre 7/Ingenieria del Conocimiento/Proyecto3/ANN/tweets.xlsx")
   xl = pd.ExcelFile(path)
   df = xl.parse("tweets")
@@ -86,15 +86,18 @@ def getTweets():
   path = os.path.abspath("./")
   xl_todos = pd.ExcelFile(path + "/Todos.xlsx")
   xl_seleccionados = pd.ExcelFile(path + "/Seleccionados.xlsx")
-  
-  df_todos = xl_todos.parse("Todos")
+
+  df_todos = xl_todos.parse("Tweets")
   df_s = xl_seleccionados.parse("Seleccionados")
 
   seleccionados = df_s
-  no_seleccionados = seleccionados[~seleccionados.isin(df_todos)]
+  no_seleccionados = df_s[~df_s["Texto"].isin(df_todos["Texto"])]
 
-  print(seleccionados.head())
-  print(no_seleccionados.head())
-
+  # print(seleccionados.head()["Texto"])
+  # print("-------------------------------------------------------------")
+  # print(no_seleccionados.head()["Texto"])
+  # # print(len(seleccionados))
+  # # print(len(no_seleccionados))
 if __name__ == '__main__':
   pass
+  # getTweets()
