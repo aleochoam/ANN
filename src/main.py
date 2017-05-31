@@ -6,6 +6,9 @@ from sklearn.metrics import accuracy_score
 from ann_prueba import ANN
 from trainer import Trainer
 from preprocesor import bagOfWords
+
+from pybrain_ann import *
+
 def counter(tweet, features):
   result = [0 for i in range(25)]
   for i in range(len(features)):
@@ -47,11 +50,10 @@ def getEntrenamiento(features):
   return entrenamiento, test
 
 def main():
-  features = features = [a for a,b in bagOfWords()]
+  features = [a for a,b in bagOfWords()]
   entrenamiento, test = getEntrenamiento(features)
   ann = ANN()
   trainer = Trainer(ann)
-  # print(entrenamiento[0])
   trainer.train(np.array(entrenamiento[0]) ,np.array(entrenamiento[1]))
   yTest = np.array(test[1])
   xTest = test[0]
@@ -67,5 +69,13 @@ def main():
   #print(y_pred)
   print(accuracy_score(y_pred, yTest))
 
+def main_pybrain():
+  features = [a for a,b in bagOfWords()]
+  ann = crear_red()
+  entrenamiento, test = getEntrenamiento(features)
+  train(ann, entrenamiento)
+  #evaluar y comprar resultados
+
+
 if __name__ == '__main__':
-  main()
+  main_pybrain()
