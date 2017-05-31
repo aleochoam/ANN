@@ -87,8 +87,8 @@ def main_scikit():
   entrenamiento, test = getEntrenamiento(features)
   ann = ann_scikit()
   train_scikit(ann, entrenamiento[0])
-  y_pred = [ann.predict(x) for x in test[0]
+  y_pred = [ann.predict(x) for x in test[0]]
   permormTest(y_pred, test)
 
 if __name__ == '__main__':
-  main_pybrain()
+  main_scikit()
