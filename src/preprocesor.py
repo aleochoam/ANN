@@ -82,6 +82,19 @@ def bagOfWords():
   sorted_diferencias = sorted(diferencias.items(), key=operator.itemgetter(1))
   return sorted_diferencias[-25:]
 
+def getTweets():
+  path = os.path.abspath("./")
+  xl_todos = pd.ExcelFile(path + "/Todos.xlsx")
+  xl_seleccionados = pd.ExcelFile(path + "/Seleccionados.xlsx")
+  
+  df_todos = xl_todos.parse("Todos")
+  df_s = xl_seleccionados.parse("Seleccionados")
+
+  seleccionados = df_s
+  no_seleccionados = seleccionados[~seleccionados.isin(df_todos)]
+
+  print(seleccionados.head())
+  print(no_seleccionados.head())
 
 if __name__ == '__main__':
   pass
